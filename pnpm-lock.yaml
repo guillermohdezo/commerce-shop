@@ -116,6 +116,9 @@ dependencies:
   '@react-email/text':
     specifier: ^0.0.7
     version: 0.0.7(react@18.2.0)
+  '@t3-oss/env-core':
+    specifier: ^0.12.0
+    version: 0.12.0(typescript@5.3.3)(zod@3.22.4)
   '@t3-oss/env-nextjs':
     specifier: ^0.7.3
     version: 0.7.3(typescript@5.3.3)(zod@3.22.4)
@@ -2540,6 +2543,24 @@ packages:
     resolution: {integrity: sha512-E4KcWTpoLHqwPHLxidpOqQbcrZVgi0rsmmZXUle1jXmJfuIf/UWpczUJ7MZZ5tlxytgJXyp0w4PGkkeLiuIdZw==}
     dependencies:
       tslib: 2.6.2
+    dev: false
+
+  /@t3-oss/env-core@0.12.0(typescript@5.3.3)(zod@3.22.4):
+    resolution: {integrity: sha512-lOPj8d9nJJTt81mMuN9GMk8x5veOt7q9m11OSnCBJhwp1QrL/qR+M8Y467ULBSm9SunosryWNbmQQbgoiMgcdw==}
+    peerDependencies:
+      typescript: '>=5.0.0'
+      valibot: ^1.0.0-beta.7 || ^1.0.0
+      zod: ^3.24.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+      valibot:
+        optional: true
+      zod:
+        optional: true
+    dependencies:
+      typescript: 5.3.3
+      zod: 3.22.4
     dev: false
 
   /@t3-oss/env-core@0.7.3(typescript@5.3.3)(zod@3.22.4):
