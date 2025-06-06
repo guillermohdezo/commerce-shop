@@ -76,8 +76,66 @@ export const users = pgTable("user", {
     mode: "date",
   }),
   image: text("image"),
+  cellphone: text("cellphone"),
+  reminderType: text("reminder_type"),
+  reminderDay: integer("reminder_day"),
   role: userRoleEnum("user"),
   createdAt: timestamp("createdAt", { mode: "date" }).defaultNow().notNull(),
+})
+
+export const suppliers = pgTable("supplier", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 64 }).notNull(),
+})
+
+export const purchases = pgTable("purchase", {
+  id: serial("id").primaryKey(),
+  supplierId: integer("supplier_id").references(() => suppliers.id),
+  total: decimal("total", { precision: 10, scale: 2 }).notNull(),
+  subTotal: decimal("sub_total", { precision: 10, scale: 2 }).notNull(),
+  purchaseDate: timestamp("purchase_date", { mode: "date" }).notNull(),
+})
+
+export const purchasePrices = pgTable("purchase_price", {
+  id: serial("id").primaryKey(),
+  itemId: integer("item_id").references(() => items.id),
+  purchaseId: integer("purchase_id").references(() => purchases.id),
+  discount: decimal("discount", { precision: 5, scale: 2 }).notNull().default("0"),
+  price: decimal("price", { precision: 10, scale: 2 }).notNull(),
+  quantity: integer("quantity").notNull(),
+})
+
+export const sellingPrices = pgTable("selling_price", {
+  id: serial("id").primaryKey(),
+  itemId: integer("item_id").references(() => items.id),
+  price: decimal("price", { precision: 10, scale: 2 }).notNull(),
+  discount: decimal("discount", { precision: 5, scale: 2 }).notNull().default("0"),
+  startDate: timestamp("start_date", { mode: "date" }),
+  endDate: timestamp("end_date", { mode: "date" }),
+})
+
+export const itemTypes = pgTable("item_type", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 32 }).notNull(),
+  description: text("description"),
+})
+
+export const customerPurchases = pgTable("customer_purchase", {
+  id: serial("id").primaryKey(),
+  userId: text("user_id").references(() => users.id),
+  itemId: integer("item_id").references(() => items.id),
+  purchaseId: integer("purchase_id").references(() => purchases.id),
+  quantity: integer("quantity").notNull(),
+  price: decimal("price", { precision: 10, scale: 2 }).notNull(),
+  date: timestamp("date", { mode: "date" }).notNull(),
+})
+
+export const payments = pgTable("payment", {
+  id: serial("id").primaryKey(),
+  customerPurchaseId: integer("customer_purchase_id").references(() => customerPurchases.id),
+  amount: decimal("amount", { precision: 10, scale: 2 }).notNull(),
+  paymentDate: timestamp("payment_date", { mode: "date" }).notNull(),
+  paymentType: varchar("payment_type", { length: 32 }),
 })
 
 export const usersRelations = relations(users, ({ one, many }) => ({

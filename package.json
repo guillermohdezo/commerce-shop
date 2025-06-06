@@ -74,6 +74,7 @@
     "@react-email/section": "^0.0.11",
     "@react-email/tailwind": "^0.0.13",
     "@react-email/text": "^0.0.7",
+    "@t3-oss/env-core": "^0.12.0",
     "@t3-oss/env-nextjs": "^0.7.3",
     "@tanstack/react-table": "^8.11.6",
     "@uploadthing/react": "^6.1.0",

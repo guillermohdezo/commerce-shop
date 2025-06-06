@@ -1,6 +1,18 @@
 import { db } from "@/db"
-import { brands, categories, items, units } from "@/db/schema"
 import { eq, sql } from "drizzle-orm"
+import {
+  brands,
+  categories,
+  items,
+  units,
+  suppliers,
+  purchases,
+  purchasePrices,
+  sellingPrices,
+  itemTypes,
+  customerPurchases,
+  payments,
+} from "@/db/schema"
 
 // CATEGORIES
 export const psGetCategoryByName = db
@@ -64,3 +76,73 @@ export const psGetItemById = db
   .prepare("psGetItemById")
 
 export const psGetAllItems = db.select().from(items).prepare("psGetAllItems")
+
+// SUPPLIERS
+export const psGetSupplierByName = db
+  .select()
+  .from(suppliers)
+  .where(eq(suppliers.name, sql.placeholder("name")))
+  .prepare("psGetSupplierByName")
+
+export const psGetSupplierById = db
+  .select()
+  .from(suppliers)
+  .where(eq(suppliers.id, sql.placeholder("id")))
+  .prepare("psGetSupplierById")
+
+export const psGetAllSuppliers = db.select().from(suppliers).prepare("psGetAllSuppliers")
+
+// PURCHASES
+export const psGetPurchaseById = db
+  .select()
+  .from(purchases)
+  .where(eq(purchases.id, sql.placeholder("id")))
+  .prepare("psGetPurchaseById")
+
+export const psGetAllPurchases = db.select().from(purchases).prepare("psGetAllPurchases")
+
+// PURCHASE PRICES
+export const psGetPurchasePriceById = db
+  .select()
+  .from(purchasePrices)
+  .where(eq(purchasePrices.id, sql.placeholder("id")))
+  .prepare("psGetPurchasePriceById")
+
+export const psGetAllPurchasePrices = db.select().from(purchasePrices).prepare("psGetAllPurchasePrices")
+
+// SELLING PRICES
+export const psGetSellingPriceById = db
+  .select()
+  .from(sellingPrices)
+  .where(eq(sellingPrices.id, sql.placeholder("id")))
+  .prepare("psGetSellingPriceById")
+
+export const psGetAllSellingPrices = db.select().from(sellingPrices).prepare("psGetAllSellingPrices")
+
+// ITEM TYPES
+export const psGetItemTypeById = db
+  .select()
+  .from(itemTypes)
+  .where(eq(itemTypes.id, sql.placeholder("id")))
+  .prepare("psGetItemTypeById")
+
+export const psGetAllItemTypes = db.select().from(itemTypes).prepare("psGetAllItemTypes")
+
+// CUSTOMER PURCHASES
+export const psGetCustomerPurchaseById = db
+  .select()
+  .from(customerPurchases)
+  .where(eq(customerPurchases.id, sql.placeholder("id")))
+  .prepare("psGetCustomerPurchaseById")
+
+export const psGetAllCustomerPurchases = db.select().from(customerPurchases).prepare("psGetAllCustomerPurchases")
+
+// PAYMENTS
+export const psGetPaymentById = db
+  .select()
+  .from(payments)
+  .where(eq(payments.id, sql.placeholder("id")))
+  .prepare("psGetPaymentById")
+
+export const psGetAllPayments = db.select().from(payments).prepare("psGetAllPayments")
+
